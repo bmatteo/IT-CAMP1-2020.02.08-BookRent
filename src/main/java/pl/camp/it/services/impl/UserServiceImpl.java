@@ -5,7 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.camp.it.dao.IUserDAO;
 import pl.camp.it.model.User;
+import pl.camp.it.model.UserRole;
+import pl.camp.it.model.forms.Register;
 import pl.camp.it.services.IUserService;
+
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -24,5 +28,26 @@ public class UserServiceImpl implements IUserService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean register(Register register) {
+        if(register.getPass().equals(register.getPass2())) {
+            User userFromDb = userDAO.getUserByLogin(register.getLogin());
+
+            if(userFromDb == null) {
+                User user = new User();
+                user.setId(new Random().nextInt());
+                user.setLogin(register.getLogin());
+                user.setPass(DigestUtils.md5Hex(register.getPass()));
+                user.setRole(UserRole.USER);
+
+                userDAO.persistUser(user);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

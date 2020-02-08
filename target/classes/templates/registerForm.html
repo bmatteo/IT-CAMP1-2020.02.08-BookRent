@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Rent</title>
+</head>
+<body>
+<form method="post">
+    <input type="text" placeholder="login" autofocus th:field="*{registerModel.login}">
+    <input type="password" placeholder="password" th:field="*{registerModel.pass}">
+    <input type="password" placeholder="repeat password" th:field="*{registerModel.pass2}">
+    <input type="submit" value="Register">
+</form>
+</body>
+</html>

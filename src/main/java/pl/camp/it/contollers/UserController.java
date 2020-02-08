@@ -2,10 +2,13 @@ package pl.camp.it.contollers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.camp.it.model.User;
+import pl.camp.it.model.forms.Register;
 import pl.camp.it.services.IUserService;
 
 @Controller
@@ -39,7 +42,20 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPage() {
+    public String registerPage(Model model) {
+        model.addAttribute("registerModel", new Register());
         return "registerForm";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerAction(@ModelAttribute Register register) {
+
+        boolean registered = userService.register(register);
+
+        if(registered) {
+            return "redirect:/main";
+        } else {
+            return "redirect:/register";
+        }
     }
 }
