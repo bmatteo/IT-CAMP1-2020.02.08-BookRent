@@ -1,37 +1,36 @@
 package pl.camp.it.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import pl.camp.it.dao.IRentDAO;
 import pl.camp.it.model.Rent;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RentDAOImpl implements IRentDAO {
 
     private String fileName = "/home/mateusz/ITCamp-Kraków/2020.02.08-bookRent/src/main/resources/rents.txt";
 
     @Override
     public void persistRent(Rent rent) {
-        List<Book> temporaryBase = getAllBooks();
+        List<Rent> temporaryBase = getAllRents();
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))){
 
-            for (Book tempBook : temporaryBase) {
-                if(tempBook.getId() == book.getId()) {
-                    temporaryBase.remove(tempBook);
+            for (Rent tempRent : temporaryBase) {
+                if(tempRent.getId() == rent.getId()) {
+                    temporaryBase.remove(tempRent);
                     break;
                 }
             }
 
-            temporaryBase.add(book);
+            temporaryBase.add(rent);
 
-            for (Book tempBook : temporaryBase) {
-                bufferedWriter.write(tempBook.toString());
+            for (Rent tempRent : temporaryBase) {
+                bufferedWriter.write(tempRent.toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -42,7 +41,17 @@ public class RentDAOImpl implements IRentDAO {
 
     @Override
     public List<Rent> getRentsByBookId(int bookId) {
-        return null;
+        List<Rent> temporaryBase = getAllRents();
+
+        List<Rent> result = new ArrayList<>();
+
+        for (Rent rent : temporaryBase) {
+            if(rent.getBookId() == bookId) {
+                result.add(rent);
+            }
+        }
+
+        return result;
     }
 
     @Override
