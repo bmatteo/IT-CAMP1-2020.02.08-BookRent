@@ -10,7 +10,9 @@ import pl.camp.it.model.Book;
 import pl.camp.it.model.Rent;
 import pl.camp.it.services.IBookService;
 import pl.camp.it.services.IRentService;
+import pl.camp.it.session.SessionObject;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
@@ -19,8 +21,15 @@ public class RentController {
     @Autowired
     IRentService rentService;
 
+    @Resource
+    SessionObject sessionObject;
+
     @RequestMapping(value = "/rent/{id}", method = RequestMethod.GET)
     public String rentBook(@PathVariable int id, Model model) {
+
+        if(!sessionObject.isLogged()) {
+            return "redirect:/login";
+        }
 
         boolean isRent = rentService.rentBookById(id);
         if(isRent) {
@@ -29,12 +38,26 @@ public class RentController {
             model.addAttribute("rentMessage", "Wypożyczenie nieudane !!");
         }
 
+        List<Rent> userRents =
+                rentService.getAllRentsForUser(sessionObject.getUser());
+
+        model.addAttribute("userRents", userRents);
+
         return "myRents";
     }
 
     @RequestMapping(value = "/myRents", method = RequestMethod.GET)
     public String rentsView(Model model) {
+        if(!sessionObject.isLogged()) {
+            return "redirect:/login";
+        }
         model.addAttribute("rentMessage", "");
+
+        List<Rent> userRents =
+                rentService.getAllRentsForUser(sessionObject.getUser());
+
+        model.addAttribute("userRents", userRents);
+
         return "myRents";
     }
 }

@@ -6,11 +6,7 @@
     <link rel="stylesheet" href="books.css">
 </head>
 <body>
-<div id="menu">
-    <a href="/books">Przeglądaj</a>
-    <a href="/myRents">Twoje wypożyczenia</a>
-    <a href="/logout">Wyloguj</a>
-</div>
+<div th:replace="fragments.html :: menu"></div>
 <div id="content">
 
     <form action="/bookFilter" method="post">

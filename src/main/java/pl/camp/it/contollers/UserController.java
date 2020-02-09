@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.annotation.SessionScope;
 import pl.camp.it.model.Book;
 import pl.camp.it.model.User;
 import pl.camp.it.model.forms.Register;
@@ -37,13 +36,18 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
+        if(sessionObject.isLogged()) {
+            return "redirect:/main";
+        }
         return "loginForm";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginAction(@RequestParam String login,
                               @RequestParam String pass) {
-
+        if(sessionObject.isLogged()) {
+            return "redirect:/main";
+        }
 
         User user = userService.authenticate(login,pass);
 
@@ -52,12 +56,16 @@ public class UserController {
             return "loginForm";
         } else {
             sessionObject.setLogged(true);
+            sessionObject.setUser(user);
             return "redirect:/main";
         }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
+        if(sessionObject.isLogged()) {
+            return "redirect:/main";
+        }
         model.addAttribute("registerModel", new Register());
         model.addAttribute("book", new Book());
         return "registerForm";
@@ -66,7 +74,9 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerAction(@ModelAttribute Register registerZFormularza,
                                  Model opcjonalnyModelNigdyNieUżyty) {
-
+        if(sessionObject.isLogged()) {
+            return "redirect:/main";
+        }
         boolean registered = userService.register(registerZFormularza);
 
         if(registered) {
