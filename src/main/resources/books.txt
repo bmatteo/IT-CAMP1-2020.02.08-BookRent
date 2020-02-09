@@ -1,0 +1,4 @@
+1;Craig Walls;Spring w akcji. Wydanie V;hagsfdhj
+2;Robert C. Martin;Czysty kod. Podręcznik dobrego programisty;978-83-283-0234-1, 9788328302341
+3;Robert C. Martin;Czysta architektura. Struktura i design oprogramowania. Przewodnik dla profesjonalistów;978-83-283-4225-5, 9788328342255
+4;Radosław Kulesza;Młodzi giganci programowania. Scratch;978-83-283-4336-8, 9788328343368

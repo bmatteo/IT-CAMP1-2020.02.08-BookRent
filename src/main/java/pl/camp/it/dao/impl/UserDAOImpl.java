@@ -38,6 +38,7 @@ public class UserDAOImpl implements IUserDAO {
 
             for (User tempUser : temporaryBase) {
                 bufferedWriter.write(tempUser.toString());
+                bufferedWriter.newLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

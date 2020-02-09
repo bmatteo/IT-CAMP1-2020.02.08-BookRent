@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Book Rent</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" th:href="@{/myRents.css}">
 </head>
 <body>
 <div id="menu">
@@ -12,7 +12,7 @@
     <a href="/logout">Wyloguj</a>
 </div>
 <div id="content">
-    Witamy na stronie super nowoczesnej wypożyczalni książek !!
+    <p th:text="${rentMessage}"></p>
 </div>
 </body>
 </html>

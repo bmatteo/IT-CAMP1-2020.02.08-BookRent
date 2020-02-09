@@ -31,6 +31,7 @@ public class RentDAOImpl implements IRentDAO {
 
             for (Rent tempRent : temporaryBase) {
                 bufferedWriter.write(tempRent.toString());
+                bufferedWriter.newLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

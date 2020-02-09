@@ -30,6 +30,7 @@ public class BookDAOImpl implements IBookDAO {
 
             for (Book tempBook : temporaryBase) {
                 bufferedWriter.write(tempBook.toString());
+                bufferedWriter.newLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -57,6 +58,19 @@ public class BookDAOImpl implements IBookDAO {
 
         for (Book book : temporaryBase) {
             if(book.getAuthor().equals(author)) {
+                return book;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Book getBookById(int id) {
+        List<Book> temporaryBase = getAllBooks();
+
+        for (Book book : temporaryBase) {
+            if(book.getId() == id) {
                 return book;
             }
         }

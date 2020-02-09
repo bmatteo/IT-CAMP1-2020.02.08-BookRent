@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Rent</title>
+    <link rel="stylesheet" href="books.css">
+</head>
+<body>
+<div id="menu">
+    <a href="/books">Przeglądaj</a>
+    <a href="/myRents">Twoje wypożyczenia</a>
+    <a href="/logout">Wyloguj</a>
+</div>
+<div id="content">
+
+    <form action="/bookFilter" method="post">
+        <input type="text" placeholder="filtr" name="filter" th:value="${filter}">
+        <input type="submit" value="Filtruj">
+    </form>
+
+    <th:block th:each="book : ${books}">
+        <div class="book">
+            <p th:text="${book.title}"></p>
+            <p th:text="${book.author}"></p>
+            <p th:text="${book.isbn}"></p>
+
+            <a th:href="${'/rent/' + book.id}">Wypożycz</a>
+            <!--p th:text="${book}"></p-->
+        </div>
+
+    </th:block>
+</div>
+</body>
+</html>

@@ -8,5 +8,6 @@ public interface IBookDAO {
     void persistBook(Book book);
     Book getBookByTitle(String title);
     Book getBookByAuthor(String author);
+    Book getBookById(int id);
     List<Book> getAllBooks();
 }

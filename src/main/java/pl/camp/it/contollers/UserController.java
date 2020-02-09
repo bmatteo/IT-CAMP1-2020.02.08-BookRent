@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.SessionScope;
+import pl.camp.it.model.Book;
 import pl.camp.it.model.User;
 import pl.camp.it.model.forms.Register;
 import pl.camp.it.services.IUserService;
+import pl.camp.it.session.SessionObject;
+
+import javax.annotation.Resource;
 
 @Controller
 public class UserController {
@@ -17,9 +22,17 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+    @Resource
+    SessionObject sessionObject;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainPage() {
-        return "redirect:/login";
+
+        if(sessionObject.isLogged()) {
+            return "redirect:/main";
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -35,8 +48,10 @@ public class UserController {
         User user = userService.authenticate(login,pass);
 
         if(user == null) {
+            sessionObject.setLogged(false);
             return "loginForm";
         } else {
+            sessionObject.setLogged(true);
             return "redirect:/main";
         }
     }
@@ -44,18 +59,26 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
         model.addAttribute("registerModel", new Register());
+        model.addAttribute("book", new Book());
         return "registerForm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerAction(@ModelAttribute Register register) {
+    public String registerAction(@ModelAttribute Register registerZFormularza,
+                                 Model opcjonalnyModelNigdyNieUżyty) {
 
-        boolean registered = userService.register(register);
+        boolean registered = userService.register(registerZFormularza);
 
         if(registered) {
             return "redirect:/main";
         } else {
             return "redirect:/register";
         }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout() {
+        sessionObject.setLogged(false);
+        return "redirect:/login";
     }
 }

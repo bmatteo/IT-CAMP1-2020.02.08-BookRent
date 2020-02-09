@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Rent</title>
+    <link rel="stylesheet" href="register.css">
 </head>
 <body>
-<form method="post">
+<form method="post" id="register-form">
     <input type="text" placeholder="login" autofocus th:field="*{registerModel.login}">
     <input type="password" placeholder="password" th:field="*{registerModel.pass}">
     <input type="password" placeholder="repeat password" th:field="*{registerModel.pass2}">
