@@ -37,7 +37,6 @@ public class UserServiceImpl implements IUserService {
 
             if(userFromDb == null) {
                 User user = new User();
-                user.setId(new Random().nextInt());
                 user.setLogin(register.getLogin());
                 user.setPass(DigestUtils.md5Hex(register.getPass()));
                 user.setRole(UserRole.USER);

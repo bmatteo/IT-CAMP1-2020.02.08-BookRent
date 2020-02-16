@@ -17,25 +17,21 @@ public class HaksyController {
     public String addBooks() {
 
         Book book = new Book();
-        book.setId(1);
         book.setTitle("Spring w akcji. Wydanie V");
         book.setAuthor("Craig Walls");
         book.setIsbn("hagsfdhj");
 
         Book book2 = new Book();
-        book2.setId(2);
         book2.setTitle("Czysty kod. Podręcznik dobrego programisty");
         book2.setAuthor("Robert C. Martin");
         book2.setIsbn("978-83-283-0234-1, 9788328302341");
 
         Book book3 = new Book();
-        book3.setId(3);
         book3.setTitle("Czysta architektura. Struktura i design oprogramowania. Przewodnik dla profesjonalistów");
         book3.setAuthor("Robert C. Martin");
         book3.setIsbn("978-83-283-4225-5, 9788328342255");
 
         Book book4 = new Book();
-        book4.setId(4);
         book4.setTitle("Młodzi giganci programowania. Scratch");
         book4.setAuthor("Radosław Kulesza");
         book4.setIsbn("978-83-283-4336-8, 9788328343368");

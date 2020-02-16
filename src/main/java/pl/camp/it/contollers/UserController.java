@@ -67,7 +67,7 @@ public class UserController {
             return "redirect:/main";
         }
         model.addAttribute("registerModel", new Register());
-        model.addAttribute("book", new Book());
+        //model.addAttribute("book", new Book());
         return "registerForm";
     }
 

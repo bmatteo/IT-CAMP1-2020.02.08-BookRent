@@ -41,7 +41,6 @@ public class RentServiceImpl implements IRentService {
 
         Rent rent = new Rent();
 
-        rent.setId(new Random().nextInt());
         rent.setBookId(book.getId());
         rent.setActive(true);
         rent.setStartDate(LocalDate.now());
