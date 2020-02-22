@@ -39,6 +39,8 @@ public class BookController {
     @RequestMapping(value = "/bookFilter", method = RequestMethod.POST)
     public String booksFilteredView(@RequestParam String filter, Model model) {
 
+        addCommonParametersToModel(model);
+
         if(!sessionObject.isLogged()) {
             return "redirect:/login";
         }
@@ -56,5 +58,14 @@ public class BookController {
         model.addAttribute("books", filteredBooks);
         model.addAttribute("filter", filter);
         return "books";
+    }
+
+
+    private void addCommonParametersToModel(Model model) {
+        //uzupełnia model
+        model.addAttribute("jakisAtrybut", "wartość");
+        //
+        //
+        //
     }
 }

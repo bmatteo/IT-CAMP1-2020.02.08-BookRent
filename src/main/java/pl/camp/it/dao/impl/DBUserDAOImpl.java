@@ -8,7 +8,7 @@ import pl.camp.it.model.UserRole;
 
 import java.sql.*;
 
-@Repository
+//@Repository
 public class DBUserDAOImpl implements IUserDAO {
 
     @Autowired

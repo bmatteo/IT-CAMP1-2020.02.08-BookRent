@@ -1,9 +1,16 @@
 package pl.camp.it.model;
 
+import javax.persistence.*;
+
+@Entity(name = "tuser")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String login;
     private String pass;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
     private UserRole role;
 
     public int getId() {

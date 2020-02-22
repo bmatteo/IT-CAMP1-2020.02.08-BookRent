@@ -1,5 +1,6 @@
 package pl.camp.it.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.SessionScope;
@@ -18,7 +19,7 @@ public class AppConfiguration {
         //return new SessionObject();
    // }
 
-    @Bean
+    /*@Bean
     public Connection connection() {
         try {
             String url = "jdbc:mysql://localhost:3306/bookRent?user=root&password=";
@@ -30,5 +31,10 @@ public class AppConfiguration {
         }
 
         return null;
+    }*/
+
+    @Bean
+    public SessionFactory sessionFactory() {
+        return new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
     }
 }
