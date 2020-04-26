@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="2020.02.08-bookRent" />
+        <module name="bookRent" />
       </profile>
     </annotationProcessing>
   </component>

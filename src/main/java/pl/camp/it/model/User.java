@@ -59,4 +59,40 @@ public class User {
 
         return stringBuilder.toString();
     }
+
+    public static void autoValidate(User user) {
+        autoValidateWithoutRole(user);
+        if(user.role == null) {
+            throw new UserValidationException();
+        }
+    }
+
+    public static void autoValidateWithoutRole(User user) {
+        if(user == null) {
+            throw new UserValidationException();
+        }
+        if(user.id < 1 || user.login == null) {
+            throw new UserValidationException();
+        }
+    }
+
+    public static class UserValidator {
+        User user;
+
+        public UserValidator(User user) {
+            this.user = user;
+        }
+
+        public void validate() {
+            if(user == null) {
+                throw new UserValidationException();
+            }
+            if(user.id < 1 || user.login == null || user.role == null) {
+                throw new UserValidationException();
+            }
+        }
+    }
+
+    public static class UserValidationException extends RuntimeException {
+    }
 }

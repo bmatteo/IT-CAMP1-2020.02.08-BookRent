@@ -14,7 +14,6 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class RentServiceImpl implements IRentService {
@@ -31,6 +30,9 @@ public class RentServiceImpl implements IRentService {
     @Override
     public boolean rentBookById(int id) {
         Book book = bookDAO.getBookById(id);
+        if(book == null) {
+            return false;
+        }
         List<Rent> allRentsForBook = rentDAO.getRentsByBookId(book.getId());
 
         for (Rent rent : allRentsForBook) {
@@ -54,6 +56,12 @@ public class RentServiceImpl implements IRentService {
     @Override
     public List<Rent> getAllRentsForUser(User user) {
         List<Rent> allRents = rentDAO.getAllRents();
+
+        if(user == null) {
+            return allRents;
+        }
+        User.autoValidate(user);
+        new User.UserValidator(user).validate();
 
         List<Rent> rentsForUser = new ArrayList<>();
 
