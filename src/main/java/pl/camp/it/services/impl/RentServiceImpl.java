@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RentServiceImpl implements IRentService {
@@ -41,6 +43,14 @@ public class RentServiceImpl implements IRentService {
             }
         }
 
+        /*Optional<Rent> optionalRent = allRentsForBook.stream()
+                .filter(Rent::isActive)
+                .findAny();
+
+        if(!optionalRent.isPresent()) {
+            return false;
+        }*/
+
         Rent rent = new Rent();
 
         rent.setBookId(book.getId());
@@ -63,14 +73,16 @@ public class RentServiceImpl implements IRentService {
         User.autoValidate(user);
         new User.UserValidator(user).validate();
 
-        List<Rent> rentsForUser = new ArrayList<>();
+        /*List<Rent> rentsForUser = new ArrayList<>();
 
         for (Rent rent : allRents) {
             if(rent.getUserId() == user.getId()) {
                 rentsForUser.add(rent);
             }
-        }
+        }*/
 
-        return rentsForUser;
+        return allRents.stream()
+                .filter(r -> r.getUserId() == user.getId())
+                .collect(Collectors.toList());
     }
 }

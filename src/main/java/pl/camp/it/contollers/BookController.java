@@ -13,6 +13,7 @@ import pl.camp.it.session.SessionObject;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class BookController {
@@ -45,7 +46,7 @@ public class BookController {
             return "redirect:/login";
         }
 
-        List<Book> books = bookService.getAllBooks();
+        /*List<Book> books = bookService.getAllBooks();
 
         List<Book> filteredBooks = new ArrayList<>();
 
@@ -53,7 +54,11 @@ public class BookController {
             if(book.toString().contains(filter)) {
                 filteredBooks.add(book);
             }
-        }
+        }*/
+
+        List<Book> filteredBooks = bookService.getAllBooks().stream()
+                .filter(x -> x.toString().contains(filter))
+                .collect(Collectors.toList());
 
         model.addAttribute("books", filteredBooks);
         model.addAttribute("filter", filter);
